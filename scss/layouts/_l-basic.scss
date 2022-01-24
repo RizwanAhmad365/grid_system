@@ -2,6 +2,10 @@
   width: 90%;
   margin: 0 auto;
 }
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
 
 $xxl: 5;
 $xl: 4;
@@ -27,12 +31,15 @@ $breakpoints: (
 
 @each $brk, $cols in $grid {
   @each $col in $cols {
-    .#{$brk}-#{$col} > * {
+    .container.#{$brk}-#{$col} > * {
       @if #{$brk} == xxl {
-        padding: 100px;
       } @else {
         @media screen and (max-width: map-get($breakpoints, #{$brk})) {
-          width: 1px;
+          @if #{$brk} == sm {
+            padding: 10px;
+          } @else {
+            padding: 14px;
+          }
         }
       }
     }

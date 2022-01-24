@@ -3,30 +3,31 @@
   margin: 0 auto;
 }
 
-.xxl-5 > * {
-  padding: 100px;
+.container {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 @media screen and (max-width: 1200px) {
-  .xl-4 > * {
-    width: 1px;
+  .container.xl-4 > * {
+    padding: 14px;
   }
 }
 
 @media screen and (max-width: 900px) {
-  .lg-3 > * {
-    width: 1px;
+  .container.lg-3 > * {
+    padding: 14px;
   }
 }
 
 @media screen and (max-width: 720px) {
-  .md-2 > * {
-    width: 1px;
+  .container.md-2 > * {
+    padding: 14px;
   }
 }
 
 @media screen and (max-width: 568p) {
-  .sm-1 > * {
-    width: 1px;
+  .container.sm-1 > * {
+    padding: 10px;
   }
 }
