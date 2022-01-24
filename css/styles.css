@@ -2,3 +2,31 @@
   width: 90%;
   margin: 0 auto;
 }
+
+.xxl-5 > * {
+  padding: 100px;
+}
+
+@media screen and (max-width: 1200px) {
+  .xl-4 > * {
+    width: 1px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .lg-3 > * {
+    width: 1px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .md-2 > * {
+    width: 1px;
+  }
+}
+
+@media screen and (max-width: 568p) {
+  .sm-1 > * {
+    width: 1px;
+  }
+}
