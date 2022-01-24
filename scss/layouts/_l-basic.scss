@@ -1,0 +1,33 @@
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+$xxl: (5, 4);
+$xl: ();
+$lg: ();
+$md: ();
+$sm: ();
+
+$grid: (
+  xxl: $xxl,
+  xl: $xl,
+  lg: $lg,
+  md: $md,
+  sm: $sm,
+);
+
+$breakpoints: (
+  xxl: 1440px,
+  xl: 1200px,
+  lg: 900px,
+  md: 720px,
+  sm: 568p,
+);
+
+@each $brk, $cols in $grid {
+  @each $col in $cols {
+    .#{$brk}-#{$col} {
+      
+    }
+  }
+}
