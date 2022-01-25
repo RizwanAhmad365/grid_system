@@ -1,46 +1,97 @@
-.container {
-  width: 90%;
-  margin: 0 auto;
-}
-.container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-$xxl: 5;
-$xl: 4;
-$lg: 3;
-$md: 2;
-$sm: 1;
-
-$grid: (
-  xxl: $xxl,
-  xl: $xl,
-  lg: $lg,
-  md: $md,
-  sm: $sm,
-);
+@use "sass:list";
+@use "sass:map";
 
 $breakpoints: (
   xxl: 1440px,
   xl: 1200px,
   lg: 900px,
   md: 720px,
-  sm: 568p,
+  sm: 568px,
 );
+* {
+  box-sizing: border-box;
+}
+.l-container {
+  width: 90%;
+  max-width: map.get($breakpoints, "xxl");
+  margin: 0 auto;
+}
+.l-container {
+  display: flex;
+  flex-wrap: wrap;
+  border: 1px solid gray;
+}
+.child {
+  background-color: deepskyblue;
+  color: #fff;
+  font-family: "Helvetica";
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  font-size: 3rem;
+  border-radius: 0.5rem;
+  border: 1px solid royalblue;
+}
 
-@each $brk, $cols in $grid {
-  @each $col in $cols {
-    .container.#{$brk}-#{$col} > * {
-      @if #{$brk} == xxl {
+// xxl-5__gx-1__gy-1
+
+// prettier-ignore
+$grids: [
+  [ "xxl", 5, 1, 1],
+  [ "xl", 4, 1, 1],
+  [ "lg", 3, 1, 1],
+  [ "md", 2, 1, 1],
+  [ "sm", 1, 1, 1],
+
+  [ "xxl", 5, 0, 0],
+  [ "xl", 4, 0, 0],
+  [ "lg", 3, 0, 0],
+  [ "md", 2, 0, 0],
+  [ "sm", 1, 0, 0],
+];
+
+@function getWidth($grid) {
+  @return calc(
+    (100% - ((#{nth($grid, 2)} - 1) * #{nth($grid, 3)}rem)) / #{nth($grid, 2)}
+  );
+}
+
+@function getClassName($grid) {
+  @return #{nth($grid, 1)}-#{nth($grid, 2)}__gx-#{nth($grid, 3)}__gy-#{nth(
+      $grid,
+      4
+    )};
+}
+
+@each $grid in $grids {
+  @media screen and (max-width: map.get($breakpoints, #{nth($grid, 1)})) {
+    .#{getClassName($grid)} > *:nth-child(n):nth-last-child(n) {
+      width: getWidth(($grid));
+      @if nth($grid, 3) == 0 {
       } @else {
-        @media screen and (max-width: map-get($breakpoints, #{$brk})) {
-          @if #{$brk} == sm {
-            padding: 10px;
-          } @else {
-            padding: 14px;
-          }
-        }
+        margin-right: nth($grid, 3) * 1rem;
+      }
+      @if nth($grid, 4) == 0 {
+      } @else {
+        margin-bottom: nth($grid, 3) * 1rem;
+      }
+    }
+    @if nth($grid, 3) == 0 {
+    } @else {
+      .#{getClassName($grid)}
+        > *:nth-child(#{nth($grid,2)}n):nth-last-child(n) {
+        margin-right: 0;
+      }
+    }
+    @if nth($grid, 4) == 0 {
+    } @else {
+      .#{getClassName($grid)}
+        > *:nth-child(#{nth($grid,2)}n + 1):nth-last-child(-n
+          + #{nth($grid,2)}),
+      .#{getClassName($grid)}
+        > *:nth-child(#{nth($grid,2)}n + 1):nth-last-child(-n + #{nth($grid,2)})
+        ~ * {
+        margin-bottom: 0;
       }
     }
   }
